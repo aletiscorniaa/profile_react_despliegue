@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Alert } from "react-bootstrap";
+import { Alert, Form, Button } from "react-bootstrap";
 
 const Formulario = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
@@ -25,10 +25,10 @@ const Formulario = () => {
     return (
         <div className="container mt-5">
             {showSuccessMessage && <Alert variant="success">¡El formulario se envió con éxito!</Alert>}
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="form-group">
-                    <label htmlFor="nombre">Nombre:</label>
-                    <input className="form-control" type="text" {...register("nombre", {
+            <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form.Group>
+                    <Form.Label htmlFor="nombre">Nombre:</Form.Label>
+                    <Form.Control type="text" {...register("nombre", {
                         required: "Nombre requerido",
                         pattern: {
                             value: /^[A-Za-z]+$/i,
@@ -36,11 +36,11 @@ const Formulario = () => {
                         }
                     })} />
                     {errors.nombre && <p>{errors.nombre.message}</p>}
-                </div>
+                </Form.Group>
 
-                <div className="form-group">
-                    <label htmlFor="nombre">Apellido:</label>
-                    <input className="form-control" type="text" {...register("apellido", {
+                <Form.Group>
+                    <Form.Label htmlFor="nombre">Apellido:</Form.Label>
+                    <Form.Control type="text" {...register("apellido", {
                         required: "Apellido requerido",
                         pattern: {
                             value: /^[A-Za-z]+$/i,
@@ -48,30 +48,28 @@ const Formulario = () => {
                         }
                     })} />
                     {errors.apellido && <p>{errors.apellido.message}</p>}
-                </div>
+                </Form.Group>
 
-                <div className="form-group">
-                    <label htmlFor="email">Correo Electrónico:</label>
-                    <input className="form-control" type="mail" {...register("email", { required: "Email requerido" })} />
+                <Form.Group>
+                    <Form.Label htmlFor="email">Correo Electrónico:</Form.Label>
+                    <Form.Control type="mail" {...register("email", { required: "Email requerido" })} />
                     {errors.email && <p>{errors.email.message}</p>}
-                </div>
+                </Form.Group>
 
-                <div className="form-group">
-                    <label htmlFor="email">Contraseña:</label>
-                    <input className="form-control" type="password" {...register("password", { required: "Contraseña requerida" })} />
+                <Form.Group>
+                    <Form.Label htmlFor="email">Contraseña:</Form.Label>
+                    <Form.Control type="password" {...register("password", { required: "Contraseña requerida" })} />
                     {errors.password && <p>{errors.password.message}</p>}
-                </div>
+                </Form.Group>
 
-                <div className="form-group">
-                    <label htmlFor="email">Confirmar Contraseña:</label>
-                    <input className="form-control" type="password" {...register("secpass", { required: "Confirmar contraseña requerida", validate: validatePassword })} />
+                <Form.Group>
+                    <Form.Label htmlFor="email">Confirmar Contraseña:</Form.Label>
+                    <Form.Control className="form-control" type="password" {...register("secpass", { required: "Confirmar contraseña requerida", validate: validatePassword })} />
                     {errors.secpass && <p>{errors.secpass.message}</p>}
-                </div>
+                </Form.Group>
 
-                <div className="mb-3 mt-3">
-                    <button className="btn btn-primary" type="submit" disabled={Object.keys(errors).length > 0}>Enviar</button>
-                </div>
-            </form>
+                <Button variant="primary" type="submit" className="mt-3 mb-3" disabled={Object.keys(errors).length > 0}>Enviar</Button>
+            </Form>
         </div>
     );
 }
